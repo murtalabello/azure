@@ -55,7 +55,3 @@ resource "azurerm_linux_virtual_machine" "ai_vm" {
   }
 }
 
-variable "ssh_public_key" {
-  description = "SSH Public Key for VM login"
-  type        = string
-}
