@@ -14,6 +14,10 @@ on:
           - refresh
           - destroy
 
+permissions:
+  id-token: write  # Required for OIDC authentication
+  contents: read   # Required for accessing repo content
+
 jobs:
   terraform:
     runs-on: ubuntu-latest
