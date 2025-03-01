@@ -4,14 +4,12 @@ on:
   workflow_dispatch:
     inputs:
       terraform_action:
-        description: 'Select Terraform action (plan, apply, refresh, destroy)'
+        description: 'Select Terraform action (apply, destroy)'
         required: true
-        default: 'plan'
+        default: 'apply'
         type: choice
         options:
-          - plan
           - apply
-          - refresh
           - destroy
 
 permissions:
@@ -41,17 +39,9 @@ jobs:
     - name: Terraform Init
       run: terraform init
 
-    - name: Terraform Plan
-      if: ${{ github.event.inputs.terraform_action == 'plan' }}
-      run: terraform plan -out=tfplan
-
     - name: Terraform Apply
       if: ${{ github.event.inputs.terraform_action == 'apply' }}
-      run: terraform apply -auto-approve tfplan
-
-    - name: Terraform Refresh
-      if: ${{ github.event.inputs.terraform_action == 'refresh' }}
-      run: terraform refresh
+      run: terraform apply -auto-approve
 
     - name: Terraform Destroy
       if: ${{ github.event.inputs.terraform_action == 'destroy' }}
