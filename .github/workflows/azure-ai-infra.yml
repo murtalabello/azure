@@ -4,13 +4,12 @@ on:
   workflow_dispatch:
     inputs:
       terraform_action:
-        description: 'Select Terraform action (apply, destroy)'
+        description: 'Select Terraform action (apply)'
         required: true
         default: 'apply'
         type: choice
         options:
           - apply
-       
 
 permissions:
   id-token: write  # Required for OIDC authentication
@@ -37,17 +36,12 @@ jobs:
         terraform_version: latest
 
     - name: Terraform Init
+      working-directory: ai-training-gpu-vm  # Updated path
       run: terraform init
 
     - name: Terraform Apply
       if: ${{ github.event.inputs.terraform_action == 'apply' }}
-      env:
-        TF_VAR_ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}  # Injects GitHub Secret
-      run: terraform apply -auto-approve
-
-
-    - name: Terraform Destroy
-      if: ${{ github.event.inputs.terraform_action == 'destroy' }}
+      working-directory: ai-training-gpu-vm  # Updated path
       env:
         TF_VAR_ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
-      run: terraform destroy -auto-approve  || true
+      run: terraform apply -auto-approve
