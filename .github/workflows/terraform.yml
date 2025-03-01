@@ -1,15 +1,36 @@
 name: Terraform Deployment
 
 on:
-  workflow_dispatch:  # Manual trigger only
+  workflow_dispatch:
+    inputs:
+      terraform_action:
+        description: 'Select Terraform action (plan, apply, refresh, destroy)'
+        required: true
+        default: 'plan'
+        type: choice
+        options:
+          - plan
+          - apply
+          - refresh
+          - destroy
 
 jobs:
   terraform:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        subscription: ["SUBSCRIPTION_ID_1", "SUBSCRIPTION_ID_2"]  # Add all your subscriptions
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
+
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ matrix.subscription }}
 
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v2
@@ -20,7 +41,17 @@ jobs:
       run: terraform init
 
     - name: Terraform Plan
+      if: ${{ github.event.inputs.terraform_action == 'plan' }}
       run: terraform plan -out=tfplan
 
     - name: Terraform Apply
+      if: ${{ github.event.inputs.terraform_action == 'apply' }}
       run: terraform apply -auto-approve tfplan
+
+    - name: Terraform Refresh
+      if: ${{ github.event.inputs.terraform_action == 'refresh' }}
+      run: terraform refresh
+
+    - name: Terraform Destroy
+      if: ${{ github.event.inputs.terraform_action == 'destroy' }}
+      run: terraform destroy -auto-approve
