@@ -1,4 +1,4 @@
-name: Use Case 1 - Deploy AI Training Workloads with Terraform
+name: Deploy AI Training Workloads with Terraform
 
 on:
   workflow_dispatch:
