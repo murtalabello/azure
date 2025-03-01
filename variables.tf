@@ -27,3 +27,9 @@ variable "admin_username" {
   type        = string
   default     = "azureuser"
 }
+
+variable "ssh_public_key" {
+  description = "SSH Public Key for VM login"
+  type        = string
+}
+
