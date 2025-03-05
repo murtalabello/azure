@@ -1,12 +1,12 @@
 
 # AI Training Infrastructure Deployment
 
-## 🚀 Overview
+🚀 Overview
 This repository contains Terraform code and GitHub Actions workflows to deploy a **GPU Virtual Machine (VM) on Azure** for AI training. The infrastructure is managed using **GitHub Actions** for automation and **Azure Federated Credentials** for authentication.
 
 ---
 
-## 📌 Prerequisites
+📌 Prerequisites
 Before deploying, ensure you have:
 - An **Azure Subscription**.
 - **Owner or Contributor access** to create resources.
