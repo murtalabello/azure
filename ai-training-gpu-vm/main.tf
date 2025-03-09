@@ -1,6 +1,9 @@
 resource "azurerm_resource_group" "ai_infra" {
   name     = var.resource_group_name
   location = var.location
+
+
+
 }
 
 resource "azurerm_virtual_network" "ai_vnet" {
