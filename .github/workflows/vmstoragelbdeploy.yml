@@ -28,12 +28,16 @@ jobs:
 
       - name: Initialize Terraform
         run: terraform init
+        working-directory: azure/azurevm-storage
 
       - name: Validate Terraform
         run: terraform validate
+        working-directory: azure/azurevm-storage
 
       - name: Plan Terraform
         run: terraform plan -out=tfplan
+        working-directory: azure/azurevm-storage
 
       - name: Apply Terraform
         run: terraform apply -auto-approve tfplan
+        working-directory: azure/azurevm-storage
