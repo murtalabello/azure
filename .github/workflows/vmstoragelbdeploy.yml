@@ -28,7 +28,7 @@ jobs:
 
       - name: Debug - List Files in Repo
         run: ls -R
-        working-directory: azure
+        working-directory: azure/azurevm-storage  
 
       - name: Initialize Terraform        
         run: terraform init        
