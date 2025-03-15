@@ -11,6 +11,7 @@ module "storage" {
   source               = "./modules/storage"
   resource_group_name  = azurerm_resource_group.rg.name
   location             = azurerm_resource_group.rg.location
+  #count = 0 
 }
 
 module "dev_vm" {

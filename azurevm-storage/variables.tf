@@ -14,3 +14,9 @@ variable "admin_password" {
   default = "SecurePass123!"
 }
 
+variable "environment" {
+   default "dev"
+}
+
+
+
